@@ -57,13 +57,18 @@ from typing import Iterable, Tuple, List, Union, Any
 import warnings
 import numpy as npy
 from datetime import datetime
-import collections
 import pprint
 import re
 from subprocess import Popen, PIPE
 import sys
 from functools import wraps
 from .constants import Number, NumberLike
+
+import collections
+try:
+    collectionsAbc = collections.abc
+except AttributeError:
+    collectionsAbc = collections
 
 def now_string() -> str:
     '''
@@ -367,7 +372,7 @@ def findReplace(directory: str, find: str, replace: str, file_pattern: str):
 
 # general purpose objects
 
-class HomoList(collections.Sequence):
+class HomoList(collectionsAbc.Sequence):
     '''
     A Homogeneous Sequence.
 
@@ -464,7 +469,7 @@ class HomoList(collections.Sequence):
         return pprint.pformat(self.store)
 
 
-class HomoDict(collections.MutableMapping):
+class HomoDict(collectionsAbc.MutableMapping):
     '''
     A Homogeneous Mutable Mapping.
 
